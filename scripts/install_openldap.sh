@@ -45,34 +45,34 @@ install_and_configure_openldap () {
         # Reset passwords to enable DIT configuration following silent installation
         echo "Setting up default passwords"
         HASHEDPASSWORD=`sudo slappasswd -s ${LDAPPASSWORD}`
-        sudo sed -i '/olcRootPW/c\olcRootPW: '${HASHEDPASSWORD}  /etc/ldap/slapd.d/cn\=config/olcDatabase={1}mdb.ldif
-        sudo echo 'olcRootDN: cn=admin,cn=config' >> /etc/ldap/slapd.d/cn\=config/olcDatabase={0}config.ldif
-        sudo echo 'olcRootPW: '${HASHEDPASSWORD} >> /etc/ldap/slapd.d/cn\=config/olcDatabase={0}config.ldif
+        sed -i '/olcRootPW/c\olcRootPW: '${HASHEDPASSWORD}  /etc/ldap/slapd.d/cn\=config/olcDatabase={1}mdb.ldif
+        echo 'olcRootDN: cn=admin,cn=config' >> /etc/ldap/slapd.d/cn\=config/olcDatabase={0}config.ldif
+        echo 'olcRootPW: '${HASHEDPASSWORD} >> /etc/ldap/slapd.d/cn\=config/olcDatabase={0}config.ldif
 
         # Reset CRC Timestamp
         reset_crc_file_stamp /etc/ldap/slapd.d/cn\=config/olcDatabase={1}mdb.ldif
         reset_crc_file_stamp /etc/ldap/slapd.d/cn\=config/olcDatabase={0}config.ldif
 
         # Restart LDAP Server Service
-        sudo systemctl restart slapd.service
+        systemctl restart slapd.service
 
         # Enbale LDAP logging
-        sudo ldapmodify -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/enableLDAPlogs.ldif
+        ldapmodify -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/enableLDAPlogs.ldif
 
         # Enable memberOf overlay - easily and efficiently do queries that enables you to see which users are part of which groups 
         echo "Enabling LDAP memberOf Overlay"
-        sudo ldapadd -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/memberOfmodule.ldif
-        sudo ldapadd -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/memberOfconfig.ldif
-        sudo ldapmodify -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/refintmodule.ldif
-        sudo ldapadd -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/refintconfig.ldif
+        ldapadd -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/memberOfmodule.ldif
+        ldapadd -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/memberOfconfig.ldif
+        ldapmodify -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/refintmodule.ldif
+        ldapadd -w ${LDAPPASSWORD} -D cn=admin,cn=config -f /usr/local/bootstrap/conf/ldap/refintconfig.ldif
 
         # Configure LDAP users and groups
         echo "Loading new details into LDAP server - users & groups"
-        sudo ldapadd -x -D cn=admin,dc=eu -w ${LDAPPASSWORD} -f /usr/local/bootstrap/conf/ldap/slapd.ldif
+        ldapadd -x -D cn=admin,dc=eu -w ${LDAPPASSWORD} -f /usr/local/bootstrap/conf/ldap/slapd.ldif
 
         # Review the LDIF
         echo "Dumping the DIT to screen"
-        sudo slapcat
+        slapcat
 
         # Verify Access
         echo "Sample Queries"
