@@ -31,7 +31,8 @@ Requirements
 ``` bash
 mkdir LDAP_DEMO
 cd LDAP_DEMO
-git clone repo.git .
+git clone git@github.com:allthingsclowd/Basic_LDAP_Server.git .
+cd Basic_LDAP_Server
 source var.env
 vagrant up
 vagrant ssh
