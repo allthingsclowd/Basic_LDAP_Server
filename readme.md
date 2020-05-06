@@ -1,6 +1,6 @@
-# Vault LDAP Integration into Root Namespace - Configuring Additional Namespaces
+# Simple LDAP Server
 
-This repository has been created to evaluate the integration of HashiCorp Vault Namespaces with OpenLDAP (and eventually OKTA's MFA).
+This vagrant image builds the following LDAP Config....
 
 ## Use case configuration
 
@@ -23,20 +23,15 @@ Requirements
 ## Installation of this setup
 
 - Prerequisites: Vagrant and Virtualbox should be installed on the host system
-- Clone the repository to the host system from [github](git@github.com:allthingsclowd/vault_ldap_namespaces.git)
-- Create a .hsm directory in the root of this newly cloned repository
-- Copy the Vault Enterprise zipfile into the .hsm directory
-- Set the vault binary filename in the var.env file e.g. `export VAULT_BINARY=vault-enterprise_1.4.0-rc1+prem_linux_amd64.zip`
+- Clone the repository to the host system
 - Source the var.env file
 - Vagrant up
-- Now Vault and LDAP should be available and integrated on the vagrant box - 192.168.15.11
+- Now LDAP should be available and integrated on the vagrant box - 192.168.15.11
 
 ``` bash
 mkdir LDAP_DEMO
 cd LDAP_DEMO
-git clone git@github.com:allthingsclowd/vault_ldap_namespaces.git .
-mkdir .hsm
-cp <location of vault ent binary zip file> .hsm/
+git clone repo.git .
 source var.env
 vagrant up
 vagrant ssh
@@ -73,77 +68,4 @@ memberOf: cn=vault,ou=groups,dc=allthingscloud,dc=eu
 dn: cn=oktauser,ou=people,dc=allthingscloud,dc=eu
 ```
 If the LDAP query does not return memberOf that contains the correct groups then verify that the filter is configured correctly - e.g. `(&(objectClass=inetOrgPerson)(uid=*))`
-
-Vault's LDAP setup can be verified as follows on the vagrant box
-##(Note: LDAP path has been set to a non standard mydemoldapserver)##
-
-``` bash
-source var.env
-vault login -method=ldap -path=mydemoldapserver username=mpoppins
-```
-
-Output:
-
-``` bash
-Password (will be hidden): passworda
-WARNING! The VAULT_TOKEN environment variable is set! This takes precedence
-over the value set by this command. To use the value set by this command,
-unset the VAULT_TOKEN environment variable or set it to the token displayed
-below.
-
-Success! You are now authenticated. The token information displayed below
-is already stored in the token helper. You do NOT need to run "vault login"
-again. Future Vault requests will automatically use this token.
-
-Key                    Value
----                    -----
-token                  s.fusuYVYvDItb4XCG5tH9jtEl
-token_accessor         7WNnJZSycIXqyH7BqVQbOCxG
-token_duration         768h
-token_renewable        true
-token_policies         ["default"]
-identity_policies      ["shared_operator"]
-policies               ["default" "shared_operator"]
-token_meta_username    mpoppins
-```
-
-Review the token details: 
-
-``` bash
-vault token lookup s.fusuYVYvDItb4XCG5tH9jtEl
-```
-
-Output:
-
-``` bash
-Key                            Value
----                            -----
-accessor                       7WNnJZSycIXqyH7BqVQbOCxG
-creation_time                  1555597117
-creation_ttl                   768h
-display_name                   mydemoldapserver-mpoppins
-entity_id                      f84ca212-5b59-d701-8014-b08ed2dfe911
-expire_time                    2019-05-20T14:18:37.028917033Z
-explicit_max_ttl               0s
-external_namespace_policies    map[44KZv:[facebook_admin]]
-id                             s.fusuYVYvDItb4XCG5tH9jtEl
-identity_policies              [shared_operator]
-issue_time                     2019-04-18T14:18:37.028916833Z
-meta                           map[username:mpoppins]
-num_uses                       0
-orphan                         true
-path                           auth/mydemoldapserver/login/mpoppins
-policies                       [default]
-renewable                      true
-ttl                            767h59m14s
-type                           service
-```
-
-
-# TODO:
-
-- Write some meaningful policies (all messy at present)
-- Create shared secret example data
-- Add a control group to authorise secret changes
-- See if MFA is feasible from OKTA
 
