@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installnoninteractive(){
-  sudo bash -c "DEBIAN_FRONTEND=noninteractive apt-get install -q -y $*"
+  bash -c "DEBIAN_FRONTEND=noninteractive apt-get install -q -y $*"
 }
 
 addhost() {
@@ -12,7 +12,7 @@ addhost() {
             echo "$HOSTNAME already exists : $(grep $HOSTNAME $ETC_HOSTS)"
         else
             echo "Adding $HOSTNAME to your $ETC_HOSTS";
-            sudo -- sh -c -e "echo '$HOSTS_LINE' >> /etc/hosts";
+            "echo '$HOSTS_LINE' >> /etc/hosts";
 
             if [ -n "$(grep $HOSTNAME /etc/hosts)" ]
                 then
@@ -25,16 +25,16 @@ addhost() {
 
 reset_crc_file_stamp() {
     # Tidy CRCs after manual editing
-    sudo grep -v '^#' $1 > /tmp/cleaned.ldif
-    NEWCRC=`sudo crc32 /tmp/cleaned.ldif`
-    sudo sed -i '/# CRC32/c\# CRC32 '${NEWCRC} $1
+    grep -v '^#' $1 > /tmp/cleaned.ldif
+    NEWCRC=`crc32 /tmp/cleaned.ldif`
+    sed -i '/# CRC32/c\# CRC32 '${NEWCRC} $1
 
 }
 
 install_and_configure_openldap () {
 
     echo "Starting OpenLDAP installation"
-    sudo apt-get update
+    apt-get update
     # Idempotent hack
     ldapsearch -x -LLL -h localhost -D cn=admin,dc=eu -w ${LDAPPASSWORD} -b "ou=groups,dc=allthingscloud,dc=eu"
     LDAP_CONFIGURED=$?
