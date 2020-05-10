@@ -36,7 +36,7 @@ install_and_configure_openldap () {
     echo "Starting OpenLDAP installation"
     apt-get update
     # Idempotent hack
-    ldapsearch -x -LLL -h localhost -D cn=admin,dc=eu -w ${LDAPPASSWORD} -b "ou=groups,dc=allthingscloud,dc=eu"
+    ldapsearch -x -LLL -h localhost -D cn=admin,dc=eu -w ${LDAPPASSWORD} -b "ou=groups,dc=simpsons,dc=eu"
     LDAP_CONFIGURED=$?
     if [[ ${LDAP_CONFIGURED} -ne 0 ]]; then
         echo "Installing base packages"
@@ -70,17 +70,6 @@ install_and_configure_openldap () {
         echo "Loading new details into LDAP server - users & groups"
         ldapadd -x -D cn=admin,dc=eu -w ${LDAPPASSWORD} -f /usr/local/bootstrap/conf/ldap/slapd.ldif
 
-        # Review the LDIF
-        echo "Dumping the DIT to screen"
-        slapcat
-
-        # Verify Access
-        echo "Sample Queries"
-        ldapsearch -x -LLL -h localhost -D "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -w passwordd -b "cn=Ronan Keating,ou=people,dc=allthingscloud,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
-        ldapsearch -x -LLL -h localhost -D "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -w passwordd -b "cn=vault,ou=groups,dc=allthingscloud,dc=eu"
-        ldapsearch -x -LLL -h localhost -D "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -w passwordd -b "ou=people,dc=allthingscloud,dc=eu" memberOf
-        ldapsearch -x -LLL -h localhost -D "cn=vaultuser,ou=people,dc=allthingscloud,dc=eu" -w vaultuser -b "dc=allthingscloud,dc=eu" memberOf
-
     else
 
         echo "Nothing to do OpenLDAP already installed and configured!"
@@ -89,6 +78,20 @@ install_and_configure_openldap () {
 
     # Check LDAP server is listening on port 389
     nc localhost 389 -v -z
+
+    # Review the LDIF
+    echo "Dumping the DIT to screen"
+    slapcat
+
+    # Verify Access
+    echo "Sample Queries"
+    ldapwhoami -vvv -h localhost -p 389 -D "cn=Marge Simpson,ou=people,dc=simpsons,dc=eu" -x -w marge
+    ldapsearch -x -LLL -h localhost -D "cn=Marge Simpson,ou=people,dc=simpsons,dc=eu" -w marge -b "cn=Marge Simpson,ou=people,dc=simpsons,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
+    ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
+    ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(objectClass=inetOrgPerson)"
+    ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=*))"
+    ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=*))" memberOf
+    ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=homer))" memberOf
 
 }
 

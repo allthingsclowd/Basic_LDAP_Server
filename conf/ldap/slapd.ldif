@@ -5,162 +5,252 @@
 ## have a STRUCTURAL objectclass (organization in this case)
 # this is an ENTRY sequence and is preceded by a BLANK line
 
-dn: dc=allthingscloud,dc=eu
-dc: allthingscloud
-description: Example LDIF file used to help Demonstrate OpenLDAP integration with Okta and HashiCorp Vault
+dn: dc=simpsons,dc=eu
+dc: simpsons
+description: Example LDIF file used to help Demonstrate OpenLDAP integration with HashiCorp Vault
 objectClass: dcObject
 objectClass: organization
-o: Allthingscloud, Inc.
+o: Simpsons, Inc.
 
 ## FIRST Level hierarchy - people 
 ## uses mixed upper and lower case for objectclass
 # this is an ENTRY sequence and is preceded by a BLANK line
 
-dn: ou=people,dc=allthingscloud,dc=eu
+dn: ou=people,dc=simpsons,dc=eu
 ou: people
 description: All people in organisation
 objectclass: organizationalunit
 
-dn: ou=groups,dc=allthingscloud,dc=eu
+dn: ou=groups,dc=simpsons,dc=eu
 ou: groups
 description: All groups within the organisation
 objectclass: organizationalunit
 
 # Add some users
-dn: cn=Mary Poppins,ou=people,dc=allthingscloud,dc=eu
+dn: cn=Bart Simpson,ou=people,dc=simpsons,dc=eu
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: Mary Poppins
-cn: Marge Poppins
-sn: poppins
-uid: mpoppins
-userpassword: passworda
-carlicense: POP IN5
+cn: Bart Simpson
+cn: Bart
+sn: bart
+uid: bart
+userpassword: bart
+carlicense: b 4rt
 homephone: 555-111-2222
-mail: pop@allthingscloud.eu
-description: Children's Favourite
+mail: bart@simpsons.eu
+description: The Bad Boy on Team Homer
 ou: groups
 
-dn: cn=Ronan Keating,ou=people,dc=allthingscloud,dc=eu
+dn: cn=Lisa Simpson,ou=people,dc=simpsons,dc=eu
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: Ronan Keating
-cn: Ronnie K
-sn: keating
-uid: rkeating
-userpassword: passwordb
-carlicense: R0 N4N
+cn: Lisa Simpson
+cn: Lisa
+sn: lisa
+uid: lisa
+userpassword: lisa
+carlicense: L 1S4
 homephone: 555-111-3333
-mail: ronnie@allthingscloud.eu
-description: Irish Pop Star
+mail: lisa@simpsons.eu
+description: The Goody Two Shoes on Team Marge
 ou: groups
 
-dn: cn=Dylan Thomas,ou=people,dc=allthingscloud,dc=eu
+dn: cn=Maggie Simpson,ou=people,dc=simpsons,dc=eu
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: Dylan Thomas
-cn: Dickie Tee
-sn: thomas
-uid: dthomas
-userpassword: passwordc
-carlicense: DTH0 M4S
+cn: Maggie Simpson
+cn: Maggie
+sn: maggie
+uid: maggie
+userpassword: maggie
+carlicense: M4G G13
 homephone: 555-111-4444
-mail: dthomas@allthingscloud.eu
-description: Welsh Poet
+mail: maggie@simpsons.eu
+description: Always watch the quiet child on Team Marge
 ou: groups
 
-dn: cn=Dawn French,ou=people,dc=allthingscloud,dc=eu
+dn: cn=Homer Simpson,ou=people,dc=simpsons,dc=eu
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: Dawn French
-cn: D Frenchy
-sn: french
-uid: dfrench
-userpassword: passwordd
-carlicense: DFR 3NCH
+cn: Homer Simpson
+cn: Homer
+sn: homer
+uid: homer
+userpassword: homer
+carlicense: H0M 3R
 homephone: 555-111-5555
-mail: dfrench@allthingscloud.eu
-description: English Comedian
+mail: homer@simpsons.eu
+description: The Nuclear Dad that owns Team Homer
 ou: groups
 
-dn: cn=vaultuser,ou=people,dc=allthingscloud,dc=eu
+dn: cn=Marge Simpson,ou=people,dc=simpsons,dc=eu
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: vaultuser
-sn: vaultuser
-uid: vaultuser
-userpassword: vaultuser
-description: Account used to bind with Vault
+cn: Marge Simpson
+cn: Marge
+sn: marge
+uid: marge
+userpassword: marge
+carlicense: M4R G3
+homephone: 555-111-5555
+mail: marge@simpsons.eu
+description: The Blue Haired Mum that owns Team Marge
 ou: groups
 
-dn: cn=oktauser,ou=people,dc=allthingscloud,dc=eu
+dn: cn=Apu Nahasapeemapetilon,ou=people,dc=simpsons,dc=eu
 objectclass: person
 objectclass: organizationalPerson
 objectclass: inetOrgPerson
-cn: oktauser
-sn: oktauser
-uid: oktauser
-userpassword: oktauser
-description: Account used to bind with Okta Agent for MFA
+cn: Apu Nahasapeemapetilon
+cn: Apu
+sn: Apu
+uid: apu
+userpassword: apu
+carlicense: AP 00
+homephone: 555-111-5555
+mail: apu@simpsons.eu
+description: Apu - Database Team owner
+ou: groups
+
+dn: cn=Clancy Wiggum,ou=people,dc=simpsons,dc=eu
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Clancy Wiggum
+cn: Clancy
+sn: clancy
+uid: clancy
+userpassword: clancy
+carlicense: C14 NCY
+homephone: 555-111-5555
+mail: clancy@simpsons.eu
+description: Chief Clancy - Security Team owner
+ou: groups
+
+dn: cn=Ned Flanders,ou=people,dc=simpsons,dc=eu
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Ned Flanders
+cn: Ned
+sn: ned
+uid: ned
+userpassword: ned
+carlicense: N3D
+homephone: 555-111-5555
+mail: ned@simpsons.eu
+description: Ned Flanders - Human Resource team owner
+ou: groups
+
+dn: cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Moe Szyslak
+cn: Moe
+sn: moe
+uid: moe
+userpassword: moe
+description: Moe Szyslak - manages all the interactions between LDAP & Vault
 ou: groups
 
 # Add the teams
-dn: cn=TeamA,ou=groups,dc=allthingscloud,dc=eu
-cn: TeamA
+dn: cn=HRTeam,ou=groups,dc=simpsons,dc=eu
+cn: HRTeam
 objectClass: groupOfNames
 objectClass: top
-description: Team A Working Group
-member: cn=Mary Poppins,ou=people,dc=allthingscloud,dc=eu
+description: Ned Flander's Human Resource Team
+member: cn=Ned Flanders,ou=people,dc=simpsons,dc=eu
 ou: groups
 
-dn: cn=TeamB,ou=groups,dc=allthingscloud,dc=eu
-cn: TeamB
+dn: cn=TeamHomer,ou=groups,dc=simpsons,dc=eu
+cn: TeamHomer
 objectClass: groupOfNames
 objectClass: top
-description: Team B Working Group
-member: cn=Ronan Keating,ou=people,dc=allthingscloud,dc=eu
+description: Homer's Application Team
+member: cn=Homer Simpson,ou=people,dc=simpsons,dc=eu
+member: cn=Bart Simpson,ou=people,dc=simpsons,dc=eu
 ou: groups
 
-dn: cn=TeamC,ou=groups,dc=allthingscloud,dc=eu
-cn: TeamC
+dn: cn=TeamMarge,ou=groups,dc=simpsons,dc=eu
+cn: TeamMarge
 objectClass: groupOfNames
 objectClass: top
-description: Team C Working Group
-member: cn=Dylan Thomas,ou=people,dc=allthingscloud,dc=eu
+description: Marge's Application Team
+member: cn=Marge Simpson,ou=people,dc=simpsons,dc=eu
+member: cn=Lisa Simpson,ou=people,dc=simpsons,dc=eu
+member: cn=Maggie Simpson,ou=people,dc=simpsons,dc=eu
 ou: groups
 
-dn: cn=TeamD,ou=groups,dc=allthingscloud,dc=eu
-cn: TeamD
+dn: cn=DatabaseTeam,ou=groups,dc=simpsons,dc=eu
+cn: DatabaseTeam
 objectClass: groupOfNames
 objectClass: top
-description: Team D Working Group
-member: cn=Dawn French,ou=people,dc=allthingscloud,dc=eu
+description: Apu's Database Team
+member: cn=Apu Nahasapeemapetilon,ou=people,dc=simpsons,dc=eu
 ou: groups
 
-# Add the Vault Admin Group
-dn: cn=vault,ou=groups,dc=allthingscloud, dc=eu
-cn: vault
-description: All vault users within the organisation
+dn: cn=SecurityTeam,ou=groups,dc=simpsons,dc=eu
+cn: SecurityTeam
 objectClass: groupOfNames
 objectClass: top
-member: cn=vaultuser,ou=people,dc=allthingscloud,dc=eu
+description: Chief Wiggum's Security Team
+member: cn=Clancy Wiggum,ou=people,dc=simpsons,dc=eu
 ou: groups
 
+dn: cn=HRTeamAdmin,ou=groups,dc=simpsons,dc=eu
+cn: HRTeamAdmin
+objectClass: groupOfNames
+objectClass: top
+description: Human Resource Team Admins
+member: cn=Ned Flanders,ou=people,dc=simpsons,dc=eu
+ou: groups
 
+dn: cn=TeamHomerAdmin,ou=groups,dc=simpsons,dc=eu
+cn: TeamHomerAdmin
+objectClass: groupOfNames
+objectClass: top
+description: Homer's Application Team Admins
+member: cn=Homer Simpson,ou=people,dc=simpsons,dc=eu
+ou: groups
 
+dn: cn=TeamMargeAdmin,ou=groups,dc=simpsons,dc=eu
+cn: TeamMargeAdmin
+objectClass: groupOfNames
+objectClass: top
+description: Marge's Application Team Admins
+member: cn=Marge Simpson,ou=people,dc=simpsons,dc=eu
+ou: groups
 
+dn: cn=DatabaseTeamAdmin,ou=groups,dc=simpsons,dc=eu
+cn: DatabaseTeamAdmin
+objectClass: groupOfNames
+objectClass: top
+description: Apu's Database Team Admins
+member: cn=Apu Nahasapeemapetilon,ou=people,dc=simpsons,dc=eu
+ou: groups
 
-# ldapwhoami -vvv -h localhost -p 389 -D "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -x -w password
-# ldapsearch -x -LLL -h localhost -D "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -w password -b "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
-# ldapsearch -x -LLL -h localhost -D "cn=Dawn French,ou=people,dc=allthingscloud,dc=eu" -w password -b "cn=Ronan Keating,ou=people,dc=allthingscloud,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
-# ldapsearch -x -LLL -h localhost -D "cn=vaultuser,ou=people,dc=allthingscloud,dc=eu" -w vaultuser -b "ou=people,dc=allthingscloud,dc=eu" -s sub "(objectClass=inetOrgPerson)"
-# ldapsearch -x -LLL -h localhost -D "cn=vaultuser,ou=people,dc=allthingscloud,dc=eu" -w vaultuser -b "ou=people,dc=allthingscloud,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=*))"
-# ldapsearch -x -LLL -h localhost -D "cn=vaultuser,ou=people,dc=allthingscloud,dc=eu" -w vaultuser -b "ou=people,dc=allthingscloud,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=*))" memberOf
-# ldapsearch -x -LLL -h localhost -D "cn=vaultuser,ou=people,dc=allthingscloud,dc=eu" -w vaultuser -b "ou=people,dc=allthingscloud,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=mpoppins))" memberOf
+dn: cn=SecurityTeamAdmin,ou=groups,dc=simpsons,dc=eu
+cn: SecurityTeamAdmin
+objectClass: groupOfNames
+objectClass: top
+description: Chief Wiggum's Security Team Admins
+member: cn=Clancy Wiggum,ou=people,dc=simpsons,dc=eu
+ou: groups
+# ldapwhoami -vvv -h localhost -p 389 -D "cn=Marge Simpson,ou=people,dc=simpsons,dc=eu" -x -w marge
+# ldapsearch -x -LLL -h localhost -D "cn=Marge Simpson,ou=people,dc=simpsons,dc=eu" -w marge -b "cn=Marge Simpson,ou=people,dc=simpsons,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
+# ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -s sub "(objectClass=inetOrgPerson)" carlicense
+# ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(objectClass=inetOrgPerson)"
+# ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=*))"
+# ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=*))" memberOf
+# ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=inetOrgPerson)(uid=homer))" memberOf
+# ldapsearch -x -LLL -h localhost -D "cn=Moe Szyslak,ou=people,dc=simpsons,dc=eu" -w moe -b "ou=people,dc=simpsons,dc=eu" -s sub "(&(objectClass=person)(memberOf:1.2.840.113556.1.4.1941:=cn=TeamMarge,ou=groups,dc=simpsons,dc=eu))"
+# vault write auth/mydemoldapserver/groups/SecurityTeam policies=?SomePolicy?
 
-# vault write auth/mydemoldapserver/groups/TeamA policies=facebook_admin
+# (&(objectClass=person)(memberOf:1.2.840.113556.1.4.1941:=cn=TeamMarge,ou=groups,dc=simpsons,dc=eu))
+# (member:1.2.840.113556.1.4.1941:=uid=clancy,ou=people,dc=simpsons,dc=eu)
